@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "com.mickdegraaf.www"
+        versionCode = "15" 
+        version     = "1.0.2" >
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>Popcorn Time Remote</name>
+
+    <description>
+        Popcorn Time Remote enables you to control Popcorn Time!
+    </description>
+
+    <author href="http://mickdegraaf.nl" email="010692@live.nl">
+        Mick de Graaf
+    </author>
+
+    <!--
+      If you do not want any permissions to be added to your app, add the
+      following tag to your config.xml; you will still have the INTERNET
+      permission on your app, which PhoneGap requires.
+    -->
+    
+    <preference name="Fullscreen" value="true"/>
+    <preference name="Orientation" value="portrait"/>
+    
+    <preference name="permissions" value="none"/>
+    <!-- to enable individual permissions use the following examples -->
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    
+    
+</widget>
