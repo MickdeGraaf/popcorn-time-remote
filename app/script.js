@@ -1,21 +1,14 @@
-//var ip = prompt("Please enter popcorn time ip adress", "");
-
-
 var ip;
 var port;
 var username;
 var password;
 var connected = false;
-
-
 var view = "";
 
+/* Document ready */
 $(document).ready(function(){
 	
 	getRemoteSettings();
-	
-	console.log("remote started");
-	
 	listeners();	
 	checkConnected(true);
 	
@@ -23,16 +16,11 @@ $(document).ready(function(){
 		callPopcornApi("getviewstack");
 	}, 1000);
 	
-	
-	
 });
 
 
-
-
 function callPopcornApi(method, params) {	//popcorn api wrapper
-	
-	
+		
 	if (!window.connected) {
 		return false;
 	}
@@ -42,7 +30,6 @@ function callPopcornApi(method, params) {	//popcorn api wrapper
 	}
 	
 	var request = {};
-	
 	request.params = params;
 	request.id = 10;
 	request.method = method;
@@ -52,21 +39,15 @@ function callPopcornApi(method, params) {	//popcorn api wrapper
             type: 'POST',
             url: 'http://' + window.ip + ':' + window.port,
             data: JSON.stringify(request),
-            //dataType: 'json', 
             beforeSend: function (xhr){ 
 	        	xhr.setRequestHeader('Authorization', window.btoa(window.username + ":" + window.password)); 
 			},
 	    	success: function(data, textStatus) {
               	
-              if(request.method == 'getviewstack'){
-	               console.log("getting viewstack");
+              if(request.method == 'getviewstack'){ //if viewstack is checked call viewstackhandler
 	               viewstackhandler(data);
                }
-			   else{
-				   console.log(data); 
-			   }
-                     
-               
+			     
 			},    
         });
 		
@@ -77,9 +58,8 @@ function viewstackhandler(data){
 
 	currentview = data.result[0][data.result[0].length - 1];
 		
-	if(window.view != currentview &&  $("#settings").is(":visible") == false ) { //check if view is switched
+	if(window.view != currentview &&  $("#settings").is(":visible") == false ) { //check if view is changed
 		
-		console.log("view switched");
 		console.log(currentview);
 		
 		switch(currentview) {
@@ -101,16 +81,15 @@ function viewstackhandler(data){
 		        console.log("view is " + currentview);
 		}
 		
-				
 		view = currentview;
 	}
 	
 	
 }
 
+/* Functions hanling showing the right buttons */
+
 function showsContainer() {
-	console.log("now in shows container");
-	
 	$("#wrapper > .section").hide();
 	$("#arrows").show();
 	$("#showdet").show();
@@ -119,8 +98,6 @@ function showsContainer() {
 
 
 function mainBrowser() {
-	console.log("now in main browser"); 
-	
 	$("#wrapper > .section").hide();
 	$("#arrows").show();
 	$("#favseen").show();
@@ -129,115 +106,96 @@ function mainBrowser() {
 }
 
 function movieDetail() {
-	console.log("now in movie detail");
-	
 	$("#wrapper > .section").hide();
-	//$("#arrows").show();
 	$("#movdet").show();
 	
 }
 
 function player() {
-	console.log("now in player");
-	
 	$("#wrapper > .section").hide();
 	$("#player").show();
 }
 
-function listeners(){ //all events on the remote
+
+
+/* Registering event listeners (could be done more elegant)*/
+
+function listeners(){
 	
 	$("#arrowsbutton").click(function(){
-		console.log("enter pressed");
 		callPopcornApi('enter');
 		callPopcornApi("getviewstack");
 	});
 	
 	$("#arrowup").click(function(){
-		console.log("up pressed");
 		callPopcornApi('up');
 	});
 	
 	$("#arrowleft").click(function(){
-		console.log("left pressed");
 		callPopcornApi('left');
 	});
 	
 	$("#arrowdown").click(function(){
-		console.log("down pressed");
 		callPopcornApi('down');
 	});
 	
 	$("#arrowright").click(function(){
-		console.log("right pressed");
 		callPopcornApi('right');
 	});
 	
 	$("#pause").click(function(){
-		console.log("toggle playing");
 		callPopcornApi("toggleplaying");
 	});
 	
 	$("#volume").change(function() {
-		console.log("volume now: " + $(this).val() / 1000);
 		callPopcornApi("setvolume", [ $(this).val() / 1000 + 0.001 ]);	
 	});
 	
 	
 	$(".back").click(function(){
-		console.log("back");
 		callPopcornApi("back");
 		callPopcornApi("getviewstack");
 	});
 	
 	$(".quality").click(function(){
-		console.log("quality");
 		callPopcornApi("quality");
 	});
 	
 	$(".favourite").click(function(){
-		console.log("favourite");
 		callPopcornApi("togglefavourite");
 	});
 	
 	$(".seen").click(function(){
-		console.log("toggle watched");
 		callPopcornApi("togglewatched");
 	});
 	
 	$("#mute").click(function(){
-		console.log("toggle mute");
 		callPopcornApi("togglemute");
 	});
 	
 	$("#fullscreen").click(function(){
-		console.log("toggle full screen");
 		callPopcornApi("togglefullscreen");
 	});
 	
 	$(".play").click(function(){
-		console.log("toggle playing");
 		callPopcornApi("toggleplaying");
 	});
 	
 	$("#movies").click(function(){
-		console.log("show movies");
 		callPopcornApi("movieslist");
-		callPopcornApi("getviewstack");
+		callPopcornApi("getviewstack"); //check new viewstack
 	});
 	
 	$("#shows").click(function(){
-		console.log("show shows");
 		callPopcornApi("showslist");
-		callPopcornApi("getviewstack");
+		callPopcornApi("getviewstack"); //check new viewstack
 	});
 	
 	$("#nextseason").click(function(){
-		console.log("next season");
 		callPopcornApi("nextseason");
 	});
 	
 	$("#prevseason").click(function(){
-		console.log("previous season");
 		callPopcornApi("previousseason");
 	});
 	
@@ -274,7 +232,6 @@ function listeners(){ //all events on the remote
 	
 	$("#black").click(function(){
 		window.localStorage.setItem("theme", "black");
-		console.log("once you go black....");
 		setTheme("black");
 	});
 	
@@ -289,8 +246,8 @@ function closeSettings() {
 	$("#wrapper > .section").hide();
 	$("#settingsback").hide();
 	$("#settingscog").show();
-	window.view = "";
-	callPopcornApi("getviewstack");
+	window.view = ""; 
+	callPopcornApi("getviewstack"); 
 }
 
 function getRemoteSettings() {
@@ -344,17 +301,7 @@ function refreshSettings() {
 }
 
 function checkConnected(warning) {
-	
-	var request = {};
-	
-	request.params = [];
-	request.id = 10;
-	request.method = "ping";
-	request.jsonrpc = "2.0";
-	
-	 
-        
-        
+	      
   var request = {};
 	
 	request.params = [];
