@@ -99,21 +99,16 @@
 				</span>
 			</div>
 			<div class="section" id="player">
-				<i class="fa fa-pause fa-5x" id="pause"></i>
+				<i class="fa fa-pause fa-5x" data-state="playing" id="pause"></i>
 				<div class="section">
-					<span class="fa-stack fa-2x fa-fw" id="mute">
-						<i class="fa fa-ban fa-stack-2x"></i>
-						<i class="fa fa-volume-up fa-stack-1x"></i>
+					<span class="back icon icon-left-nav"></span>
+					<span class="icon" id="fullscreen">
+						<i class="fa fa-arrows-alt"></i>
 					</span>
-					<span class="fa-stack fa-2x fa-fw back" >
-						<i class="fa fa-circle-thin fa-stack-2x"></i>
-						<i class="fa fa-undo fa-stack-1x"></i>
-					</span>
-					<i class="fa fa-arrows-alt fa-3x" id="fullscreen"></i>
 				</div>
 				<div class="section">
-					<i class="fa fa-volume-down fa-2x"></i>
-					<input type="range" id="volume" name="volume" min="0" max="1000" value="800">
+					<i class="fa fa-volume-down fa-2x" id="mute"></i>
+					<input type="range" id="volume" name="volume" min="0" max="1000" value="1000">
 					<i class="fa fa-volume-up fa-2x"></i>
 				</div>
 			</div>

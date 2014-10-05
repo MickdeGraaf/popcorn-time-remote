@@ -121,6 +121,16 @@ function listeners(){
 	});
 	
 	$("#pause").click(function(){
+		if ($(this).attr("data-state")=="playing") {
+			$(this).removeClass("fa-pause");
+			$(this).addClass("fa-play");
+			$(this).attr("data-state", "paused");
+		}
+		else {
+			$(this).removeClass("fa-play");
+			$(this).addClass("fa-pause");
+			$(this).attr("data-state", "playing");
+		}
 		callPopcornApi("toggleplaying");
 	});
 	
@@ -147,6 +157,13 @@ function listeners(){
 	
 	$("#mute").click(function(){
 		callPopcornApi("togglemute");
+		if ($("#volume").val()==0) {
+			$("#volume").val(800);
+		}
+		else {
+			$("#volume").val(0);
+		}
+		
 	});
 	
 	$("#fullscreen").click(function(){
