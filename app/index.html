@@ -4,10 +4,32 @@
 		<meta charset="utf-8">
 		<title>Popcorn Time Remote</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/ratchet.min.css">
+		<link rel="stylesheet" href="css/ratchet-theme-ios.min.css">
+		<style>
+			/*.table-settings .table-view-cell {
+				padding-right: 15px;
+			}
+			.table-settings .table-view-cell input {
+				margin-top: 2px;
+			}
+			.table-settings .table-view-divider {
+				text-transform: uppercase;
+			}*/
+			.input-row {
+				height: auto;
+			}
+			.input-row label {
+				padding: 11.5px 15px;
+			}
+		</style>
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/style.css">
 		<script src="js/jquery.js"></script>
+		<script src="js/ratchet.min.js"></script>
 		<script src="js/script.js"></script>
 		<!--[if lt IE 9]>
       <script src="js/html5shiv.min.js"></script>
@@ -15,15 +37,67 @@
     <![endif]-->
 	</head>
 	<body>
-		<div id="wrapper">
-			<div class="section" id="arrows">
-				<i class="fa fa-caret-up fa-5x" id="arrowup" ></i>
-				<div id="arrowsmidle">
-					<i class="fa fa-caret-left fa-5x" id="arrowleft" ></i>
-					<div id="arrowsbutton"></div>
-					<i class="fa fa-caret-right fa-5x" id="arrowright" ></i>
+		<header class="bar bar-nav">
+			<a class="icon icon-refresh pull-left" href=""></a>
+			<a class="icon icon-gear pull-right" href="#settingsModal"></a>
+      <h1 class="title">Popcorn Time Remote</h1>
+    </header>
+		<div id="settingsModal" class="modal">
+			<header class="bar bar-nav">
+				<a class="icon icon-close pull-right" href="#settingsModal"></a>
+				<h1 class="title">Settings</h1>
+			</header>
+			<div class="content">
+				<h5 class="content-padded">Connection</h5>
+				<form>
+					<div class="input-group">
+						<div class="input-row">
+							<label>IP Addr.</label>
+							<input id="ip" type="text" name="ip" placeholder="localhost">
+						</div>
+						<div class="input-row">
+							<label>Port</label>
+							<input id="port" type="text" id="port" name="port" placeholder="8008">
+						</div>
+						<div class="input-row">
+							<label>Username</label>
+							<input id="username" type="text" name="username" placeholder="popcorn">
+						</div>
+						<div class="input-row">
+							<label>Password</label>
+							<input id="password" type="password" placeholder="popcorn">
+						</div>
+					</div>
+					<h5 class="content-padded">Layout & Design</h5>
+					<div class="input-group">
+						<div class="input-row">
+							<label>Theme</label>
+							<!--<input id="white" type="radio" name="theme" value="white"> White <br/>
+							<input id="black" type="radio" name="theme" value="black"> Black-->
+						</div>
+					</div>
+				</form>
+				<div class="content-padded">
+					<p>
+						Popcorn Time Remote is an open source project, check it out on <a href="http://git.io/ptremote">GitHub</a>.
+					</p>
+					<p>
+						Licensed under the MIT License.
+						<br/>
+						Designed by Sander Laarhoven.
+					</p>
 				</div>
-				<i class="fa fa-caret-down fa-5x" id="arrowdown" ></i>
+			</div>
+		</div>
+		<div class="content" id="wrapper">
+			<div class="section" id="arrows">
+				<i class="fa fa-caret-up fa-5x" id="arrowup"></i>
+				<div id="arrowsmidle">
+					<i class="fa fa-caret-left fa-5x" id="arrowleft"></i>
+					<div id="arrowsbutton"></div>
+					<i class="fa fa-caret-right fa-5x" id="arrowright"></i>
+				</div>
+				<i class="fa fa-caret-down fa-5x" id="arrowdown"></i>
 			</div>
 			<div class="section" id="favseen">
 				<span class="fa-stack fa-4x fa-fw favourite">
@@ -36,7 +110,7 @@
 				</span>
 			</div>
 			<div class="section" id="player">
-				<i class="fa fa-pause fa-5x" id="pause" ></i>
+				<i class="fa fa-pause fa-5x" id="pause"></i>
 				<div class="section">
 					<span class="fa-stack fa-2x fa-fw" id="mute">
 						<i class="fa fa-ban fa-stack-2x"></i>
@@ -85,27 +159,15 @@
 				</span>
 			</div>
 			<div class="section" id="movshows">
-				<span class="button" id="movies">Movies</span>
-				<span class="button" id="shows">Shows</span>
+				<div class="content-padded">
+					<span class="btn btn-primary btn-outlined btn-block" id="movies">Movies</span>
+					<span class="btn btn-primary btn-outlined btn-block" id="shows">Shows</span>
+				</div>
 			</div>
 			<div class="section" id="seasons">
-				<span class="button" id="prevseason">Previous Season</span>
-				<span class="button" id="nextseason">Next Season</span>
+				<span class="btn btn-primary btn-outlined btn-block" id="prevseason">Previous Season</span>
+				<span class="btn btn-primary btn-outlined btn-block" id="nextseason">Next Season</span>
 			</div>
-			<div class="section" id="settings">
-				<h2>Settings</h2>
-				<form>
-					IP <br> <input type="text" id ="ip" name="ip" /> <br />
-					Port <br> <input type="text" name="poort" id="port" /> <br />
-					Username <br> <input type="text" name="username" id="username" /> <br />
-					Password <br> <input type="text" name="password" id="password" /> <br />
-					Theme <br>
-					<input type="radio" name="theme" id="white" value="male">White
-					<input type="radio" name="theme" id="black"  value="female">Black<br>
-				</form>
-			</div>
-			<i class="fa fa-undo fa-3x" id="settingsback"></i>
-			<i class="fa fa-cog fa-3x" id="settingscog"></i>
 		</div>
 	</body>
 </html>

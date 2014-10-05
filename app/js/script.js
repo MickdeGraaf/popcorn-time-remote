@@ -6,26 +6,21 @@ var connected = false;
 var view = "";
 
 /* Document ready */
-$(document).ready(function(){
-	
+$(document).ready(function() {
 	getRemoteSettings();
 	listeners();	
 	checkConnected(true);
-	
-	setInterval(function(){
+	setInterval(function() {
 		callPopcornApi("getviewstack");
 	}, 1000);
 	
 });
 
-
 function callPopcornApi(method, params) {	//popcorn api wrapper
-		
 	if (!window.connected) {
 		return false;
 	}
-	
-	if(typeof params === "undefined"){
+	if(typeof params === "undefined") {
 		params = [];
 	}
 	
@@ -35,59 +30,47 @@ function callPopcornApi(method, params) {	//popcorn api wrapper
 	request.method = method;
 	request.jsonrpc = "2.0";
 	
-	 $.ajax({
-            type: 'POST',
-            url: 'http://' + window.ip + ':' + window.port,
-            data: JSON.stringify(request),
-            beforeSend: function (xhr){ 
-	        	xhr.setRequestHeader('Authorization', window.btoa(window.username + ":" + window.password)); 
-			},
-	    	success: function(data, textStatus) {
-              	
-              if(request.method == 'getviewstack'){ //if viewstack is checked call viewstackhandler
-	               viewstackhandler(data);
-               }
-			     
-			},    
-        });
-		
+	$.ajax({
+    type: 'POST',
+    url: 'http://' + window.ip + ':' + window.port,
+    data: JSON.stringify(request),
+    beforeSend: function (xhr) { 
+			xhr.setRequestHeader('Authorization', window.btoa(window.username + ":" + window.password)); 
+		},
+	  success: function(data, textStatus) {
+      if(request.method == 'getviewstack') { //if viewstack is checked call viewstackhandler
+	      viewstackhandler(data);
+      }
+		},    
+  });
+	
 }
-
 
 function viewstackhandler(data){
-
 	currentview = data.result[0][data.result[0].length - 1];
-		
 	if(window.view != currentview &&  $("#settings").is(":visible") == false ) { //check if view is changed
-		
 		console.log(currentview);
-		
 		switch(currentview) {
-		    case 'shows-container-contain':
-		       		showsContainer();
-		        break;
-		    case 'main-browser':
-		      		mainBrowser(); 
-		        break;
-		        
-		    case 'movie-detail':
-		       		movieDetail();
-		        break;
-		        
-		    case 'player':
-		       		player();
-		        break;
-		    default:
-		        console.log("view is " + currentview);
+		  case 'shows-container-contain':
+		    showsContainer();
+		    break;
+		  case 'main-browser':
+		    mainBrowser(); 
+		    break;
+		  case 'movie-detail':
+		    movieDetail();
+		    break;
+		  case 'player':
+		    player();
+		  break;
+		  default:
+		    console.info("Current View: " + currentview);
 		}
-		
 		view = currentview;
 	}
-	
-	
 }
 
-/* Functions hanling showing the right buttons */
+/* Functions handling, showing the right buttons */
 
 function showsContainer() {
 	$("#wrapper > .section").hide();
@@ -96,19 +79,16 @@ function showsContainer() {
 	$("#seasons").show();	
 }
 
-
 function mainBrowser() {
 	$("#wrapper > .section").hide();
 	$("#arrows").show();
 	$("#favseen").show();
 	$("#movshows").show();
-		
 }
 
 function movieDetail() {
 	$("#wrapper > .section").hide();
 	$("#movdet").show();
-	
 }
 
 function player() {
@@ -116,12 +96,9 @@ function player() {
 	$("#player").show();
 }
 
-
-
 /* Registering event listeners (could be done more elegant)*/
 
 function listeners(){
-	
 	$("#arrowsbutton").click(function(){
 		callPopcornApi('enter');
 		callPopcornApi("getviewstack");
@@ -150,7 +127,6 @@ function listeners(){
 	$("#volume").change(function() {
 		callPopcornApi("setvolume", [ $(this).val() / 1000 + 0.001 ]);	
 	});
-	
 	
 	$(".back").click(function(){
 		callPopcornApi("back");
@@ -213,19 +189,19 @@ function listeners(){
 	
 	/* SETTINGS HANDLERS */
 	
-	$("#ip").change(function(){
+	$("#ip").on('input', function(){
 		window.localStorage.setItem("ip", $(this).val());
 		refreshSettings();
 	});
-	$("#port").change(function(){
+	$("#port").on('input', function(){
 		window.localStorage.setItem("port", $(this).val());
 		refreshSettings();
 	});
-	$("#username").change(function(){
+	$("#username").on('input', function(){
 		window.localStorage.setItem("username", $(this).val());
 		refreshSettings();
 	});
-	$("#password").change(function(){
+	$("#password").on('input', function(){
 		window.localStorage.setItem("password", $(this).val());
 		refreshSettings();
 	});
@@ -251,9 +227,7 @@ function closeSettings() {
 }
 
 function getRemoteSettings() {
-
-	console.log(window.localStorage.getItem("port"));
-	
+	console.debug("Port: "+window.localStorage.getItem("port"));
 	
 	//check port
 	if(window.localStorage.getItem("port") == null) {
@@ -301,7 +275,6 @@ function refreshSettings() {
 }
 
 function checkConnected(warning) {
-	      
   var request = {};
 	
 	request.params = [];
@@ -309,40 +282,36 @@ function checkConnected(warning) {
 	request.method = 'ping';
 	request.jsonrpc = "2.0";
 	
-	 $.ajax({
-            type: 'POST',
-            url: 'http://' + window.ip + ':' + window.port,
-            data: JSON.stringify(request),
-            //dataType: 'json', 
-            beforeSend: function (xhr){ 
-	        	xhr.setRequestHeader('Authorization', window.btoa(window.username + ":" + window.password)); 
-			},
-	    	success: function(data, textStatus) {
-	    		
-	    			if(typeof data.error == "undefined") { //check if there are no errors
-		    			console.log('we have connection');
-		    			closeSettings();
-		    			window.connected = true;
-	    			}
-	    			else { //there are errors
-		    			if(warning){
-		    				alert('password or username is wrong');
-		    			}
-		    			window.connected = false;
-	    			}
-	    	
-				   
-			   },
-			error: function() {
-					if(warning) {
-						alert("No connection check Popcorn Time client or IP and Port settings");
-					}
-					window.connected = false;
+	$.ajax({
+    type: 'POST',
+    url: 'http://' + window.ip + ':' + window.port,
+    data: JSON.stringify(request),
+    //dataType: 'json', 
+    beforeSend: function (xhr){ 
+			xhr.setRequestHeader('Authorization', window.btoa(window.username + ":" + window.password)); 
+		},
+	  success: function(data, textStatus) {
+	    if(typeof data.error == "undefined") { //check if there are no errors
+				console.info("We've got a connection.");
+				closeSettings();
+				window.connected = true;
+	    }
+	    else { //there are errors
+		    if(warning){
+					console.error("Invalid login credentials.");
+		    	alert("Invalid login credetials provided.");
+		    }
+		    window.connected = false;
+	    }
+		},
+		error: function() {
+			if(warning) {
+				console.error("Could not connect. Check Popcorn Time client or IP and Port Settings.");
+				alert("No connection check Popcorn Time client or IP and Port settings");
 			}
-                     
-                   
-        });
-        	
+			window.connected = false;
+		}
+  });
 }
 
 function setTheme(theme) {
