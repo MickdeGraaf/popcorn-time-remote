@@ -49,7 +49,7 @@ function callPopcornApi(method, params) {	//popcorn api wrapper
 function viewstackhandler(data){
 	currentview = data.result[0][data.result[0].length - 1];
 	if(window.view != currentview &&  $("#settings").is(":visible") == false ) { //check if view is changed
-		console.log(currentview);
+		console.debug("[DEBUG] Current view: " + currentview);
 		switch(currentview) {
 		  case 'shows-container-contain':
 		    showsContainer();
@@ -64,7 +64,7 @@ function viewstackhandler(data){
 		    player();
 		  break;
 		  default:
-		    console.info("Current View: " + currentview);
+		    console.debug("[DEBUG] Current view: " + currentview);
 		}
 		view = currentview;
 	}
@@ -134,7 +134,7 @@ function listeners(){
 		callPopcornApi("toggleplaying");
 	});
 	
-	$("#volume").change(function() {
+	$("#volume").on('input', function() {
 		callPopcornApi("setvolume", [ $(this).val() / 1000 + 0.001 ]);	
 	});
 	
@@ -243,7 +243,7 @@ function closeSettings() {
 }
 
 function getRemoteSettings() {
-	console.debug("Port: "+window.localStorage.getItem("port"));
+	console.debug("[DEBUG] Port: "+window.localStorage.getItem("port"));
 	
 	//check port
 	if(window.localStorage.getItem("port") == null) {
@@ -287,7 +287,7 @@ function refreshSettings() {
 	window.username = window.localStorage.getItem("username");
 	window.password = window.localStorage.getItem("password");
 	checkConnected(false);
-	console.log("settings refreshed");
+	console.debug("[DEBUG] Settings refreshed.");
 }
 
 function checkConnected(warning) {
@@ -308,13 +308,13 @@ function checkConnected(warning) {
 		},
 	  success: function(data, textStatus) {
 	    if(typeof data.error == "undefined") { //check if there are no errors
-				console.info("We've got a connection.");
+				console.info("[INFO] Connection established.");
 				closeSettings();
 				window.connected = true;
 	    }
 	    else { //there are errors
 		    if(warning){
-					console.error("Invalid login credentials.");
+					console.error("[ERROR] Invalid login credentials.");
 		    	alert("Invalid login credetials provided.");
 		    }
 		    window.connected = false;
@@ -322,8 +322,8 @@ function checkConnected(warning) {
 		},
 		error: function() {
 			if(warning) {
-				console.error("Could not connect. Check Popcorn Time client or IP and Port Settings.");
-				alert("No connection check Popcorn Time client or IP and Port settings");
+				console.error("[ERROR] Could not connect to given client.");
+				alert("Could not connect to Popcorn Time. Please check your settings.");
 			}
 			window.connected = false;
 		}
