@@ -1,4 +1,4 @@
-/*body{
+body{
 	font-family: sans-serif;
 	background: black;
 	color: white;
@@ -10,9 +10,9 @@ body.white{
 .white #arrowsbutton {
 	background: black;
 }
-*/
+
 i{
-	color: #007aff;
+	color: inherit;
 	text-rendering: auto !important;
 }
 
@@ -62,7 +62,7 @@ i{
 	height: 100px;
 	border-radius: 50px;
 	margin: 10px 15px 5px 15px;
-	background: #007aff;
+	background: #fff;
 	display: inline-block;
 	
 }
@@ -73,21 +73,18 @@ i{
 	margin: 10px;
 }
 
-.section .icon {
-	color: #007aff;
-	width: 50px;
-	height: 50px;
-	margin: 3px;
-	font-size: 24px;
-	line-height: 50px;
-	text-align: center;
-	border: 1px solid #007aff;
-	border-radius: 25px;
-}
-
 .quality {
+	width: 45px;
+	line-height: 45px;
+	position: relative;
+	top: 5px;
 	display: inline-block;
 	text-align: center;
+	border-radius: 27px;
+	font-size: 27px;
+	border: 5px solid;
+	font-family: sans-serif;
+	font-weight: bold;
 }
 
 .section{
@@ -106,7 +103,7 @@ i{
 	font-size: 20px;
 	padding: 5px;
 	font-family: sans-serif;
-	border: 1px solid #007aff;
+	border: 4px solid #000;
 	white-space: nowrap;
 }
 
@@ -114,3 +111,21 @@ i{
 	margin-right: 10px;
 }
 
+.section#settings{
+	display: block;
+}
+
+#settingscog {
+	float: right;
+	position: absolute;
+	display: none;
+	bottom: 0px;
+	right: 3px;
+}
+
+#settingsback {
+	float: left;
+	position: absolute;
+	bottom: 0px;
+	left: 3px;
+}
