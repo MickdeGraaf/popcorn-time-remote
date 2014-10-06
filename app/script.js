@@ -118,33 +118,86 @@ function player() {
 
 
 
-/* Registering event listeners */
+/* Registering event listeners (could be done more elegant)*/
 
 function listeners(){
 	
-	clickHelper("#arrowsbutton", "enter", true);
-	clickHelper("#arrowup", "up");
-	clickHelper("#arrowleft", "left");
-	clickHelper("#arrowdown", "down");
-	clickHelper("#arrowright", "right");
-	clickHelper("#pause", "toggleplaying");
-	clickHelper(".back", "back", true);
-	clickHelper(".quality", "quality");
-	clickHelper(".favourite", "togglefavourite");
-	clickHelper(".seen", "togglewatched");
-	clickHelper("#mute", "togglemute");
-	clickHelper("#fullscreen", "togglefullscreen");
-	clickHelper(".play", "toggleplaying");
-	clickHelper("#movies", "movieslist", true);
-	clickHelper("#shows", "showslist", true);
-	clickHelper("#nextseason", "nextseason");
-	clickHelper("#prevseason", "previousseason");
+	$("#arrowsbutton").click(function(){
+		callPopcornApi('enter');
+		callPopcornApi("getviewstack");
+	});
 	
-
+	$("#arrowup").click(function(){
+		callPopcornApi('up');
+	});
+	
+	$("#arrowleft").click(function(){
+		callPopcornApi('left');
+	});
+	
+	$("#arrowdown").click(function(){
+		callPopcornApi('down');
+	});
+	
+	$("#arrowright").click(function(){
+		callPopcornApi('right');
+	});
+	
+	$("#pause").click(function(){
+		callPopcornApi("toggleplaying");
+	});
+	
 	$("#volume").change(function() {
 		callPopcornApi("setvolume", [ $(this).val() / 1000 + 0.001 ]);	
 	});
 	
+	
+	$(".back").click(function(){
+		callPopcornApi("back");
+		callPopcornApi("getviewstack");
+	});
+	
+	$(".quality").click(function(){
+		callPopcornApi("quality");
+	});
+	
+	$(".favourite").click(function(){
+		callPopcornApi("togglefavourite");
+	});
+	
+	$(".seen").click(function(){
+		callPopcornApi("togglewatched");
+	});
+	
+	$("#mute").click(function(){
+		callPopcornApi("togglemute");
+	});
+	
+	$("#fullscreen").click(function(){
+		callPopcornApi("togglefullscreen");
+	});
+	
+	$(".play").click(function(){
+		callPopcornApi("toggleplaying");
+	});
+	
+	$("#movies").click(function(){
+		callPopcornApi("movieslist");
+		callPopcornApi("getviewstack"); //check new viewstack
+	});
+	
+	$("#shows").click(function(){
+		callPopcornApi("showslist");
+		callPopcornApi("getviewstack"); //check new viewstack
+	});
+	
+	$("#nextseason").click(function(){
+		callPopcornApi("nextseason");
+	});
+	
+	$("#prevseason").click(function(){
+		callPopcornApi("previousseason");
+	});
 	
 	$("#settingscog").click(function(){
 		$("#wrapper > .section").hide();
@@ -187,23 +240,6 @@ function listeners(){
 		setTheme("white");
 	});
 		
-}
-
-
-/* Click handler helper */
-
-function clickHelper(selector, apiMethod, refreshViewstack){
-
-	$(selector).click(function(){
-		callPopcornApi(apiMethod);
-	});
-	
-	if(typeof(refreshViewstack) !== "undefined" && refreshViewstack){
-		$(selector).click(function(){
-			callPopcornApi("getviewstack");
-		});
-	}
-	
 }
 
 function closeSettings() {
