@@ -163,7 +163,6 @@ function listeners(){
 		else {
 			$("#volume").val(0);
 		}
-		
 	});
 	
 	$("#fullscreen").click(function(){
