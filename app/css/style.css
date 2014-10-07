@@ -11,6 +11,8 @@ body.white{
 	background: black;
 }
 
+
+
 i{
 	color: inherit;
 	text-rendering: auto !important;
@@ -73,6 +75,13 @@ i{
 	margin: 10px;
 }
 
+#fullscreen {
+	margin-left: 7px;
+	line-height: 2em;
+	height: 2em;
+	vertical-align: middle;
+}
+
 .quality {
 	width: 45px;
 	line-height: 45px;
@@ -103,7 +112,7 @@ i{
 	font-size: 20px;
 	padding: 5px;
 	font-family: sans-serif;
-	border: 4px solid #000;
+	border: 4px solid;
 	white-space: nowrap;
 }
 
