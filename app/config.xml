@@ -17,6 +17,9 @@
         Mick de Graaf
     </author>
 
+	<!-- barcode scanner plugin -->
+	<gap:plugin name="com.phonegap.plugins.barcodescanner"/>
+
     <!--
       If you do not want any permissions to be added to your app, add the
       following tag to your config.xml; you will still have the INTERNET
