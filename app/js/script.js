@@ -167,6 +167,12 @@ function listeners(){
 		refreshSettings();
 	});
 	
+	//only in phonegap
+	$("#scanqr").click(function(){
+		qrCodeScanner();
+		return false;
+	});
+	
 	$("#black").click(function(){
 		window.localStorage.setItem("theme", "black");
 		setTheme("black");
@@ -178,6 +184,14 @@ function listeners(){
 	});
 		
 }
+
+/*	qr code scanner (only phonegap) */
+
+function qrCodeScanner(){
+	console.debug("[DEBUG] scanning qr");
+}
+
+
 
 /* Click handler helper */
 
