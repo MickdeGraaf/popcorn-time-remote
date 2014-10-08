@@ -1,171 +1,113 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
+		<meta charset="utf-8">
 		<title>Popcorn Time Remote</title>
-		<script src="jquery.js"></script>
-		<script src="script.js"></script>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="css/font-awesome.min.css">
-		<link rel="stylesheet" href="style.css" />
-		
-		<meta name="viewport" content="width=device-width, user-scalable=no">
-		
+		<link rel="stylesheet" href="css/style.css">
+		<script src="js/jquery.min.js"></script>
+		<script src="js/script.js"></script>
+		<!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
 	</head>
-	
 	<body>
-		<div id="wrapper">
-			
+		<div class="content" id="wrapper">
 			<div class="section" id="arrows">
-			
 				<i class="fa fa-caret-up fa-5x" id="arrowup" ></i>
-				
 				<div id="arrowsmidle">
 					<i class="fa fa-caret-left fa-5x" id="arrowleft" ></i>
 					<div id="arrowsbutton"></div>
 					<i class="fa fa-caret-right fa-5x" id="arrowright" ></i>
 				</div>
-				
-				
 				<i class="fa fa-caret-down fa-5x" id="arrowdown" ></i>
-
 			</div>
-			
 			<div class="section" id="favseen">
-			
 				<span class="fa-stack fa-4x fa-fw favourite">
 					<i class="fa fa-circle-thin fa-stack-2x"></i>
 					<i class="fa fa-heart fa-stack-1x"></i>
 				</span>
-				
 				<span class="fa-stack fa-x fa-4x seen">
 					<i class="fa fa-circle-thin fa-stack-2x"></i>
 					<i class="fa fa-eye fa-stack-1x"></i>
 				</span>
-			
 			</div>
-			
-			
 			<div class="section" id="player">
 				<i class="fa fa-pause fa-5x" id="pause" ></i>
-				
 				<div class="section">
 					<span class="fa-stack fa-2x fa-fw" id="mute">
 						<i class="fa fa-ban fa-stack-2x"></i>
 						<i class="fa fa-volume-up fa-stack-1x"></i>
 					</span>
-					
-					
 					<span class="fa-stack fa-2x fa-fw back" >
 						<i class="fa fa-circle-thin fa-stack-2x"></i>
 						<i class="fa fa-undo fa-stack-1x"></i>
 					</span>
-					
 					<i class="fa fa-arrows-alt fa-3x" id="fullscreen"></i>
 				</div>
 				<div class="section">
-					
 					<i class="fa fa-volume-down fa-2x"></i>
-					
 					<input type="range" id="volume" name="volume" min="0" max="1000" value="800">
-					
 					<i class="fa fa-volume-up fa-2x"></i>
-					
 				</div>
 			</div>
-			
-			
 			<div class="section" id="movdet">
-			
 				<span class="fa-stack fa-2x fa-fw back">
 					<i class="fa fa-circle-thin fa-stack-2x"></i>
 					<i class="fa fa-undo fa-stack-1x"></i>
 				</span>
-				
 				<span class="quality">Q</span>
-				
 				<span class="fa-stack fa-2x fa-fw favourite" >
 					<i class="fa fa-circle-thin fa-stack-2x"></i>
 					<i class="fa fa-heart fa-stack-1x"></i>
 				</span>
-				
-				
 				<span class="fa-stack fa-2x fa-fw play">
 					<i class="fa fa-circle-thin fa-stack-2x"></i>
 					<i class="fa fa-play fa-stack-1x"></i>
 				</span>
-				
 			</div>
-			
 			<div class="section" id="showdet">
-			
 				<span class="fa-stack fa-2x fa-fw back">
 					<i class="fa fa-circle-thin fa-stack-2x"></i>
 					<i class="fa fa-undo fa-stack-1x"></i>
 				</span>
-				
-				
 				<span class="quality">Q</span>
-				
-				
 				<span class="fa-stack fa-x fa-2x fa-fw seen">
 					<i class="fa fa-circle-thin fa-stack-2x"></i>
 					<i class="fa fa-eye fa-stack-1x"></i>
 				</span>	
-				
 				<span class="fa-stack fa-2x fa-fw play">
 					<i class="fa fa-circle-thin fa-stack-2x"></i>
 					<i class="fa fa-play fa-stack-1x"></i>
 				</span>
-				
 			</div>
-			
-			
 			<div class="section" id="movshows">
-				
 				<span class="button" id="movies">Movies</span>
 				<span class="button" id="shows">Shows</span>
-					
 			</div>
-			
-			
 			<div class="section" id="seasons">
-				
 				<span class="button" id="prevseason">Previous Season</span>
 				<span class="button" id="nextseason">Next Season</span>
-					
 			</div>
-			
-			
 			<div class="section" id="settings">
-			
 				<h2>Settings</h2>
-			
-				
 				<form>
-					
 					IP <br> <input type="text" id ="ip" name="ip" /> <br />
 					Port <br> <input type="text" name="poort" id="port" /> <br />
 					Username <br> <input type="text" name="username" id="username" /> <br />
 					Password <br> <input type="text" name="password" id="password" /> <br />
-					
 					Theme <br>
-					
 					<input type="radio" name="theme" id="white" value="male">White
 					<input type="radio" name="theme" id="black"  value="female">Black<br>
-					
-					
-					
 				</form>
-				
 			</div>
-			
 			<i class="fa fa-undo fa-3x" id="settingsback"></i>
 			<i class="fa fa-cog fa-3x" id="settingscog"></i>
-			
 		</div>
-
 	</body>
-	
-	
-	
 </html>
