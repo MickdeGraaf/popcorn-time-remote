@@ -46,16 +46,14 @@ function callPopcornApi(method, params) {	//popcorn api wrapper
 	
 }
 
-function viewstackhandler(data){
-	
+function viewstackhandler(data){	
 	// Pre 0.3.4 
-	if( parseInt( data.result.popcornVersion.replace(/\./g, ""), 10 ) < 34 ) { //check if using an old version of popcorntime remote
-		currentview = data.result.viewstack[data.result[0].length - 1];
+	if( typeof(data.result.popcornVersion) == "undefined" ) { //check if using an old before 0.3.4
+		currentview = data.result[0][data.result[0].length - 1];
 	}
 	else { // 0.3.4 or higher
 		currentview = data.result.viewstack[data.result.viewstack.length - 1];
 	}
-	console.debug(data);
 
 	if(window.view != currentview &&  $("#settings").is(":visible") == false ) { //check if view is changed
 		console.debug("[DEBUG] Current view: " + currentview);
