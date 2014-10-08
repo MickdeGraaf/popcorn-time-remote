@@ -280,7 +280,7 @@ function refreshSettings() {
 
 function checkConnected(warning) {
   var request = {};
-	
+  	
 	request.params = [];
 	request.id = 10;
 	request.method = 'ping';
