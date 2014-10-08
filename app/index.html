@@ -9,6 +9,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/style.css">
+		<script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="barcodescanner.js"></script>
 		<script src="js/jquery.min.js"></script>
 		<script src="js/script.js"></script>
 		<!--[if lt IE 9]>
@@ -102,7 +104,7 @@
 					Username <br> <input type="text" name="username" id="username" /> <br />
 					Password <br> <input type="text" name="password" id="password" /> <br />
 					
-					<button id="scanqr">scan qr code</button> <br />
+					<span class="button" id="scanqr">scan qr code</span> <br />
 					
 					Theme <br>
 					<input type="radio" name="theme" id="white" value="male">White
