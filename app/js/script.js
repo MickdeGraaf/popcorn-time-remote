@@ -46,7 +46,10 @@ function callPopcornApi(method, params) {	//popcorn api wrapper
 	
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 function viewstackhandler(data){	
 	// Pre 0.3.4 
 	if( typeof(data.result.popcornVersion) == "undefined" ) { //check if using an old before 0.3.4
