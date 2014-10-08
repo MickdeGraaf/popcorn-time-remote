@@ -46,10 +46,7 @@ function callPopcornApi(method, params) {	//popcorn api wrapper
 	
 }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> master
 function viewstackhandler(data){	
 	// Pre 0.3.4 
 	if( typeof(data.result.popcornVersion) == "undefined" ) { //check if using an old before 0.3.4
@@ -196,18 +193,34 @@ function listeners(){
 		
 }
 
-/*	qr code scanner (only phonegap) */
+/*	qr code scanner (phonegap only) */
 
 function qrCodeScanner(){
 	console.debug("[DEBUG] scanning qr");
 	
 	var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 	
-	return false;
+	 scanner.scan( qrCodeCallBack, function (error) { 
+            console.debug("[DEBUG] scanning error")
+        } );
 	
 }
 
+/* qr code scanner callback (phonegap only) */
 
+function qrCodeCallBack(result){   
+   settings = jQuery.parseJSON(result.text);
+   
+   if(!result.cancelled && typeof(settings.ip) !== "undefined"){ //check if it is a correct bar code
+	      window.localStorage.setItem("ip", settings.ip);
+		  window.localStorage.setItem("port", settings.port);
+		  window.localStorage.setItem("username", settings.user);
+		  window.localStorage.setItem("password", settings.pass);
+   }
+	 
+   getRemoteSettings();
+   
+}
 
 /* Click handler helper */
 
