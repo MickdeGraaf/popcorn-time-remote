@@ -124,6 +124,12 @@ i{
 	display: block;
 }
 
+
+#scanqr {
+	display: inline-block;
+	margin: 10px;
+}
+
 #settingscog {
 	float: right;
 	position: absolute;
